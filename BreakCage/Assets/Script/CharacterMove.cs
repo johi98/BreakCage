@@ -10,8 +10,10 @@ public class CharacterMove : MonoBehaviour
     public float speed = 2.0f;
     Vector3 moveDirection;
     public Transform playerTr;
-
-
+    Rigidbody rb;
+    public bool isGrounded = false;
+    public int jumpCount = 3;
+    public int jumpSpeed = 3;
     [SerializeField]
     private Transform characterBody;
     [SerializeField]
@@ -22,15 +24,41 @@ public class CharacterMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        jumpCount = 0;
 
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+            jumpCount = 3;
+
+        }
+
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         LookAround();
         Move();
+
+        if (isGrounded)
+        {
+            if (jumpCount > 0)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    rb.AddForce(new Vector3(0, 2, 0) * jumpSpeed,ForceMode.Impulse);
+                    jumpCount--;
+
+                }
+            }
+        }
       
 
     }
