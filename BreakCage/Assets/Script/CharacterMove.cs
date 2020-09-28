@@ -12,8 +12,9 @@ public class CharacterMove : MonoBehaviour
     public Transform playerTr;
     Rigidbody rb;
     public bool isGrounded = false;
-    public int jumpCount = 3;
+    public int jumpCount = 20;
     public int jumpSpeed = 3;
+    public float jumpPower = 0.4f;
     [SerializeField]
     private Transform characterBody;
     [SerializeField]
@@ -34,7 +35,7 @@ public class CharacterMove : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
-            jumpCount = 3;
+            jumpCount = 20;
 
         }
 
@@ -53,7 +54,7 @@ public class CharacterMove : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    rb.AddForce(new Vector3(0, 2, 0) * jumpSpeed,ForceMode.Impulse);
+                    rb.AddForce(new Vector3(0, jumpPower, 0) * jumpSpeed,ForceMode.Impulse);
                     jumpCount--;
 
                 }
