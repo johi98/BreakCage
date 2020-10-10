@@ -8,17 +8,19 @@ public class CharacterMove : MonoBehaviour
 
     public Rigidbody playerRb;
     public float speed = 2.0f;
-    Vector3 moveDirection;
     public Transform playerTr;
     Rigidbody rb;
-    public bool isGrounded = false;
-    public int jumpCount = 20;
     public int jumpSpeed = 3;
-    public float jumpPower = 0.4f;
+    public float jumpPower = 0f;
+    public float distToGround= 2f;
     [SerializeField]
     private Transform characterBody;
     [SerializeField]
     private Transform cameraArm;
+    [SerializeField]
+    private Transform jumpArm;
+    [SerializeField]
+    private Transform jumpDir;
 
     Vector3 lookDirection;
 
@@ -26,18 +28,7 @@ public class CharacterMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        jumpCount = 0;
-
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-            jumpCount = 20;
-
-        }
+     
 
     }
 
@@ -48,17 +39,26 @@ public class CharacterMove : MonoBehaviour
         LookAround();
         Move();
 
-        if (isGrounded)
+        if (isGrounded())
         {
-            if (jumpCount > 0)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
+           
+                if (Input.GetMouseButton(0))
                 {
-                    rb.AddForce(new Vector3(0, jumpPower, 0) * jumpSpeed,ForceMode.Impulse);
-                    jumpCount--;
+                jumpPower += 0.01f;
+
+                Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
+                Quaternion newRotation = Quaternion.LookRotation(lookForward);
+
+                characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 0.1f);
+            }
+                if (Input.GetMouseButtonUp(0))
+                {
+                 rb.AddRelativeForce(new Vector3(jumpDir.position.x-characterBody.position.x,jumpPower, jumpDir.position.z - characterBody.position.z) * jumpSpeed, ForceMode.Impulse);
+
+                jumpPower = 0f;
 
                 }
-            }
+
         }
       
 
@@ -77,6 +77,7 @@ public class CharacterMove : MonoBehaviour
             Quaternion newRotation = Quaternion.LookRotation(lookForward);
 
             characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 0.1f);
+        
             //characterBody.forward = lookForward;
             transform.position += moveDir * Time.deltaTime * 5f;
         }
@@ -89,6 +90,12 @@ public class CharacterMove : MonoBehaviour
         Vector3 camAngle = cameraArm.rotation.eulerAngles;
 
         cameraArm.rotation = Quaternion.Euler(camAngle.x - mouseDelta.y, camAngle.y + mouseDelta.x, camAngle.z);
+        jumpArm.rotation = Quaternion.Euler(camAngle.x - mouseDelta.y, camAngle.y + mouseDelta.x, camAngle.z);
+    }
+
+    bool isGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, distToGround);
     }
 
 }
