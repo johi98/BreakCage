@@ -73,8 +73,7 @@ public class CharacterMove : MonoBehaviour
 
     private void Move()
     {
-        if(isGrounded())
-        {
+       
             Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             bool isMove = moveInput.magnitude != 0;
             if (isMove)
@@ -93,7 +92,7 @@ public class CharacterMove : MonoBehaviour
                 transform.position += moveDir * Time.deltaTime * 5f;
                 animator.Play("Anim_Leg_Run");
             }
-        }
+        
 
     }
 
