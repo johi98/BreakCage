@@ -22,12 +22,19 @@ public class CharacterMove : MonoBehaviour
     [SerializeField]
     private Transform jumpDir;
 
+
+    public Animator animator;
+
+
+
+
     Vector3 lookDirection;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
      
 
     }
@@ -66,20 +73,26 @@ public class CharacterMove : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        bool isMove = moveInput.magnitude != 0;
-        if(isMove)
+        if(isGrounded())
         {
-            Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
-            Vector3 lookRight = new Vector3(cameraArm.right.x, 0f, cameraArm.right.z).normalized;
-            Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            bool isMove = moveInput.magnitude != 0;
+            if (isMove)
+            {
+                Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
+                Vector3 lookRight = new Vector3(cameraArm.right.x, 0f, cameraArm.right.z).normalized;
+                Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
-            Quaternion newRotation = Quaternion.LookRotation(lookForward);
+                Vector3 caraForward = new Vector3(moveDir.x, 0f, moveDir.z).normalized;
 
-            characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 0.1f);
-        
-            //characterBody.forward = lookForward;
-            transform.position += moveDir * Time.deltaTime * 5f;
+                Quaternion newRotation = Quaternion.LookRotation(caraForward);
+
+                characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 0.1f);
+
+                //characterBody.forward = lookForward;
+                transform.position += moveDir * Time.deltaTime * 5f;
+                animator.Play("Anim_Leg_Run");
+            }
         }
 
     }
