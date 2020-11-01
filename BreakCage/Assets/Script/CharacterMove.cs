@@ -11,7 +11,7 @@ public class CharacterMove : MonoBehaviour
     public Transform playerTr;
     Rigidbody rb;
     public int jumpSpeed = 3;
-    public float jumpPower = 0f;
+    public float jumpPower = 3f;
     public float distToGround= 2f;
     [SerializeField]
     private Transform characterBody;
@@ -51,7 +51,8 @@ public class CharacterMove : MonoBehaviour
            
                 if (Input.GetMouseButton(0))
                 {
-                jumpPower += 0.01f;
+                if(jumpPower< 10f)
+                jumpPower += 0.05f;
 
                 Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
                 Quaternion newRotation = Quaternion.LookRotation(lookForward);
@@ -62,7 +63,7 @@ public class CharacterMove : MonoBehaviour
                 {
                  rb.AddRelativeForce(new Vector3(jumpDir.position.x-characterBody.position.x,jumpPower, jumpDir.position.z - characterBody.position.z) * jumpSpeed, ForceMode.Impulse);
 
-                jumpPower = 0f;
+                jumpPower = 3f;
 
                 }
 
