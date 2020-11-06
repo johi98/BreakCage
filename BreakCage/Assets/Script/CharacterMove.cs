@@ -11,7 +11,9 @@ public class CharacterMove : MonoBehaviour
     public Transform playerTr;
     Rigidbody rb;
     public int jumpSpeed = 3;
-    public float jumpPower = 3f;
+    public float jumpPowerY = 0.5f;
+    public float jumpPowerX = 1f;
+    public float jumpPowerZ = 1f;
     public float distToGround= 2f;
     [SerializeField]
     private Transform characterBody;
@@ -21,6 +23,7 @@ public class CharacterMove : MonoBehaviour
     private Transform jumpArm;
     [SerializeField]
     private Transform jumpDir;
+    bool colEnter = false;
 
 
     public Animator animator;
@@ -45,36 +48,16 @@ public class CharacterMove : MonoBehaviour
     {
         LookAround();
         Move();
-
-        if (isGrounded())
-        {
-           
-                if (Input.GetMouseButton(0))
-                {
-                if(jumpPower< 10f)
-                jumpPower += 0.05f;
-
-                Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
-                Quaternion newRotation = Quaternion.LookRotation(lookForward);
-
-                characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 0.1f);
-            }
-                if (Input.GetMouseButtonUp(0))
-                {
-                 rb.AddRelativeForce(new Vector3(jumpDir.position.x-characterBody.position.x,jumpPower, jumpDir.position.z - characterBody.position.z) * jumpSpeed, ForceMode.Impulse);
-
-                jumpPower = 3f;
-
-                }
-
-        }
+        Jump();
+      
       
 
     }
 
     private void Move()
     {
-       
+        if (isGrounded()||colEnter)
+        {
             Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             bool isMove = moveInput.magnitude != 0;
             if (isMove)
@@ -91,10 +74,75 @@ public class CharacterMove : MonoBehaviour
 
                 //characterBody.forward = lookForward;
                 transform.position += moveDir * Time.deltaTime * 5f;
-                animator.Play("Anim_Leg_Run");
-            }
-        
 
+
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Anim_Leg_Run"))
+                {
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("IdleB") || 
+                        animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
+                    {
+                        animator.Play("Anim_Leg_Run");
+                    }
+                   
+                }
+
+
+
+            }
+            if (!isMove)
+            {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("IdleB"))
+                {
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+                    {
+                        animator.Play("IdleB");
+                    }
+                    
+                }
+            }
+        }
+       
+
+    }
+
+    private void Jump()
+    {
+        if (isGrounded())
+        {
+
+            if (Input.GetMouseButton(0))
+            {
+                if (jumpPowerY < 7f)
+                    jumpPowerY += 0.05f;
+                    jumpPowerX += 0.001f;
+                    jumpPowerZ += 0.001f;
+
+                Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
+                Quaternion newRotation = Quaternion.LookRotation(lookForward);
+
+                characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 0.1f);
+                
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                rb.AddRelativeForce(new Vector3((jumpDir.position.x  - characterBody.position.x) * jumpPowerX,
+                                                jumpPowerY,
+                                                (jumpDir.position.z  - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
+
+                jumpPowerY = 0.5f;
+                jumpPowerX = 1f;
+                jumpPowerZ = 1f;
+
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+                {
+                    animator.Play("Die");
+                }
+
+            }
+
+
+        }
+        
     }
 
     private void LookAround()
@@ -105,10 +153,24 @@ public class CharacterMove : MonoBehaviour
         cameraArm.rotation = Quaternion.Euler(camAngle.x - mouseDelta.y, camAngle.y + mouseDelta.x, camAngle.z);
         jumpArm.rotation = Quaternion.Euler(camAngle.x - mouseDelta.y, camAngle.y + mouseDelta.x, camAngle.z);
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        colEnter = true;
+
+    }
+    private void OnCollisionExit(Collision collision)
+
+    {
+
+        colEnter = false;
+    }
+
 
     bool isGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, distToGround);
     }
+
+ 
 
 }
