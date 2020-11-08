@@ -24,7 +24,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField]
     private Transform jumpDir;
     bool colEnter = false;
-
+    bool isJump = false;
 
     public Animator animator;
 
@@ -38,7 +38,10 @@ public class CharacterMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-     
+        Cursor.visible = false;                     
+        Cursor.lockState = CursorLockMode.Locked;
+
+
 
     }
 
@@ -107,6 +110,8 @@ public class CharacterMove : MonoBehaviour
 
     private void Jump()
     {
+       
+
         if (isGrounded())
         {
 
@@ -125,6 +130,7 @@ public class CharacterMove : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
+                isJump = true;
                 rb.AddRelativeForce(new Vector3((jumpDir.position.x  - characterBody.position.x) * jumpPowerX,
                                                 jumpPowerY,
                                                 (jumpDir.position.z  - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
@@ -140,9 +146,26 @@ public class CharacterMove : MonoBehaviour
 
             }
 
-
         }
         
+            
+        if (Input.GetMouseButtonDown(1))
+        {
+            jumpPowerX = 5f;
+            jumpPowerZ = 5f;
+            if (isJump) {
+                rb.AddRelativeForce(new Vector3((jumpDir.position.x - characterBody.position.x) * jumpPowerX,
+                                                0,
+                                                (jumpDir.position.z - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
+
+                isJump = false;
+            }
+                
+        }
+        
+        
+        
+       
     }
 
     private void LookAround()

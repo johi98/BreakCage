@@ -338,9 +338,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -88.9592, y: 254.2051, z: 4.7767534}
+    m_Target: {x: 5.824461, y: 34.356777, z: 134.73886}
     speed: 2
-    m_Value: {x: -88.9592, y: 254.2051, z: 4.7767534}
+    m_Value: {x: 5.824461, y: 34.356777, z: 134.73886}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -386,17 +386,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.10919371, y: -0.8264614, z: 0.53333306, w: -0.15327111}
+    m_Target: {x: 0.21757023, y: -0.47231206, z: 0.13181736, w: 0.84564084}
     speed: 2
-    m_Value: {x: -0.116215274, y: -0.8231252, z: 0.5310415, w: -0.16417632}
+    m_Value: {x: 0.21725546, y: -0.47162873, z: 0.13162665, w: 0.8444174}
   m_Size:
-    m_Target: 467.63892
+    m_Target: 0.9249679
     speed: 2
-    m_Value: 489.67426
+    m_Value: 0.9249679
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
+    m_Value: 0
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -601,20 +601,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Script
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Script
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Clone\BreakCage\BreakCage
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 62830000
-    m_LastClickedID: 33634
-    m_ExpandedIDs: 0000000030830000328300003483000036830000388300003a8300003c8300003e83000040830000428300004483000046830000488300004a8300004c830000508300005683000000ca9a3b
+    m_SelectedIDs: c26d0000
+    m_LastClickedID: 28098
+    m_ExpandedIDs: 00000000806d0000826d0000846d0000866d0000886d00008a6d00008c6d00008e6d0000906d0000926d0000946d0000966d0000986d00009a6d00009c6d00009e6d0000a46d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -642,7 +642,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000030830000328300003483000036830000388300003a8300003c8300003e83000040830000428300004483000046830000488300004a8300004c830000
+    m_ExpandedIDs: 00000000806d0000826d0000846d0000866d0000886d00008a6d00008c6d00008e6d0000906d0000926d0000946d0000966d0000986d00009a6d00009c6d00009e6d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -765,9 +765,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 10c0feff
-      m_LastClickedID: -81904
-      m_ExpandedIDs: 30f0feff92fcfeffd628ffff4c35ffff125dffffe6a40000
+      m_SelectedIDs: d6350000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 68fbffff3a3b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
