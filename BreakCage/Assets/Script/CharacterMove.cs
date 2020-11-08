@@ -131,9 +131,9 @@ public class CharacterMove : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isJump = true;
-                rb.AddRelativeForce(new Vector3((jumpDir.position.x  - characterBody.position.x) * jumpPowerX,
-                                                jumpPowerY,
-                                                (jumpDir.position.z  - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
+                rb.AddRelativeForce(new Vector3(0,
+                                                7f,
+                                                0) * jumpSpeed, ForceMode.Impulse);
 
                 jumpPowerY = 0.5f;
                 jumpPowerX = 1f;
@@ -151,8 +151,8 @@ public class CharacterMove : MonoBehaviour
             
         if (Input.GetMouseButtonDown(1))
         {
-            jumpPowerX = 5f;
-            jumpPowerZ = 5f;
+            jumpPowerX = 7f;
+            jumpPowerZ = 7f;
             if (isJump) 
             {
                 Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
