@@ -147,17 +147,32 @@ public class CharacterMove : MonoBehaviour
             }
 
         }
-        
+
             
         if (Input.GetMouseButtonDown(1))
         {
             jumpPowerX = 5f;
             jumpPowerZ = 5f;
-            if (isJump) {
-                rb.AddRelativeForce(new Vector3((jumpDir.position.x - characterBody.position.x) * jumpPowerX,
-                                                0,
-                                                (jumpDir.position.z - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
+            if (isJump) 
+            {
+                Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
+                Quaternion newRotation = Quaternion.LookRotation(lookForward);
 
+                characterBody.rotation = Quaternion.Slerp(characterBody.transform.rotation, newRotation, 1f);
+
+                if (!isGrounded())
+                {
+                    rb.AddRelativeForce(new Vector3((jumpDir.position.x - characterBody.position.x) * jumpPowerX,
+                                              0,
+                                              (jumpDir.position.z - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
+
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_kick"))
+                    {
+                        animator.Play("Jump_kick");
+                    }
+
+
+                }
                 isJump = false;
             }
                 
