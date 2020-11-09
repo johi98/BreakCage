@@ -47185,6 +47185,65 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 865774054}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &865783437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865783439}
+  - component: {fileID: 865783438}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &865783438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865783437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9687823b2f04d19488ff31bb0bf34411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Main
+    clip: {fileID: 8300000, guid: 6016c1fa75e5dbc4a9ca1002cb2889d3, type: 3}
+    volume: 0
+    loop: 1
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 0903d13440ea5c442b7aa539270624a3, type: 3}
+    volume: 0.1
+    loop: 0
+    source: {fileID: 0}
+  - name: Jump2
+    clip: {fileID: 8300000, guid: e88bf3e934c018747b4c8b3b2c0a58b9, type: 3}
+    volume: 0.1
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &865783439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865783437}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -46.995052, y: 80.00496, z: 144.58073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &865874914
 PrefabInstance:
   m_ObjectHideFlags: 0
