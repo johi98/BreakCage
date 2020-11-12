@@ -134,7 +134,7 @@ public class CharacterMove : MonoBehaviour
                 
                 isJump = true;
                 rb.AddRelativeForce(new Vector3(0,
-                                                7f,
+                                                10f,
                                                 0) * jumpSpeed, ForceMode.Impulse);
 
                 jumpPowerY = 0.5f;
