@@ -52,4 +52,9 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void S1()
+    {
+        SceneManager.LoadScene("mainStage");
+    }
 }
