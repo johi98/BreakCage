@@ -180,10 +180,8 @@ public class CharacterMove : MonoBehaviour
             }
                 
         }
-        
-        
-        
-       
+
+      
     }
 
     private void LookAround()
