@@ -117,7 +117,7 @@ public class CharacterMove : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                FindObjectOfType<AudioManager>().PlaySound("Jump"); // 점프 사운드
+               
                 if (jumpPowerY < 7f)
                     jumpPowerY += 0.05f;
                     jumpPowerX += 0.001f;
@@ -131,7 +131,7 @@ public class CharacterMove : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
-                
+                FindObjectOfType<AudioManager>().PlaySound("Jump"); // 점프 사운드
                 isJump = true;
                 rb.AddRelativeForce(new Vector3(0,
                                                 10f,
@@ -153,7 +153,6 @@ public class CharacterMove : MonoBehaviour
             
         if (Input.GetMouseButtonDown(1))
         {
-            FindObjectOfType<AudioManager>().PlaySound("Jump2"); // 점프2 사운드
             jumpPowerX = 7f;
             jumpPowerZ = 7f;
             if (isJump) 
@@ -168,6 +167,7 @@ public class CharacterMove : MonoBehaviour
                     rb.AddRelativeForce(new Vector3((jumpDir.position.x - characterBody.position.x) * jumpPowerX,
                                               0,
                                               (jumpDir.position.z - characterBody.position.z) * jumpPowerZ) * jumpSpeed, ForceMode.Impulse);
+                    FindObjectOfType<AudioManager>().PlaySound("Jump2"); // 점프2 사운드
 
                     if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_kick"))
                     {
