@@ -4,8 +4,40 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-  private void OnTriggerEnter(Collider other)
+    public static bool Loadfinish = false;
+
+    public GameObject FinishUI;
+
+    /* private void OnTriggerEnter(Collider other)
+     {
+         GameObject.Find("Character").SendMessage("FinishLine");
+     }*/
+
+    private void OnTriggerEnter(Collider other)
     {
-        GameObject.Find("Character").SendMessage("FinishLine");
+        if (Loadfinish)
+        {
+            finish();
+        }
+        else
+        {
+            op();
+        }
+
+        void finish()
+        {
+            FinishUI.SetActive(false);
+            Loadfinish = false;
+        }
+
+        void op()
+        {
+            FinishUI.SetActive(true);
+            Time.timeScale = 0f;
+            Loadfinish = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            GameObject.Find("Character").SendMessage("FinishLine");
+        }
     }
 }
