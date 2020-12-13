@@ -57,4 +57,9 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("mainStage");
     }
+
+    public void Quitgame()
+    {
+        Application.Quit();
+    }
 }
